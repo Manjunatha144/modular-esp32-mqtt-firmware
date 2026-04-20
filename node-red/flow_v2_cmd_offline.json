@@ -1,0 +1,531 @@
+[
+    {
+        "id": "3a1385503e854b8c",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "fced29e842a5f32b",
+        "type": "json",
+        "z": "3a1385503e854b8c",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 490,
+        "y": 540,
+        "wires": [
+            [
+                "4e6499fab523e9fa"
+            ]
+        ]
+    },
+    {
+        "id": "f8936bac9acc619e",
+        "type": "ui_text",
+        "z": "3a1385503e854b8c",
+        "group": "bdef1690bf2db0bb",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "SEQ",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 690,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "76bfcbac34f4c877",
+        "type": "function",
+        "z": "3a1385503e854b8c",
+        "name": "seq",
+        "func": "msg.payload = msg.payload.seq;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 760,
+        "wires": [
+            [
+                "f8936bac9acc619e"
+            ]
+        ]
+    },
+    {
+        "id": "8003b154c294257b",
+        "type": "function",
+        "z": "3a1385503e854b8c",
+        "name": "uptime",
+        "func": "msg.payload = msg.payload.uptime_ms;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 820,
+        "wires": [
+            [
+                "9fa725dba278018b"
+            ]
+        ]
+    },
+    {
+        "id": "9fa725dba278018b",
+        "type": "ui_text",
+        "z": "3a1385503e854b8c",
+        "group": "bdef1690bf2db0bb",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Uptime (ms)",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 710,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "6c72a575d7c44a11",
+        "type": "ui_chart",
+        "z": "3a1385503e854b8c",
+        "name": "",
+        "group": "bdef1690bf2db0bb",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "label": "temp",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 690,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0c50a731c13f460a",
+        "type": "function",
+        "z": "3a1385503e854b8c",
+        "name": "temp",
+        "func": "msg.payload = msg.payload.temp;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 700,
+        "wires": [
+            [
+                "6c72a575d7c44a11"
+            ]
+        ]
+    },
+    {
+        "id": "75f7263f5208bb61",
+        "type": "ui_button",
+        "z": "3a1385503e854b8c",
+        "name": "",
+        "group": "bdef1690bf2db0bb",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Set 1s",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 70,
+        "y": 200,
+        "wires": [
+            [
+                "a4978374c4e0f6dd"
+            ]
+        ]
+    },
+    {
+        "id": "a4978374c4e0f6dd",
+        "type": "function",
+        "z": "3a1385503e854b8c",
+        "name": "cmd_1s",
+        "func": "msg.payload = { \"interval_ms\": 1000 };\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 260,
+        "y": 240,
+        "wires": [
+            [
+                "1aa614976839d413"
+            ]
+        ]
+    },
+    {
+        "id": "1aa614976839d413",
+        "type": "mqtt out",
+        "z": "3a1385503e854b8c",
+        "name": "",
+        "topic": "edgepulse/manjunatha144/device_001/cmd",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "cebed20bee9939a6",
+        "x": 590,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "4e6499fab523e9fa",
+        "type": "function",
+        "z": "3a1385503e854b8c",
+        "name": "mark_last_seen",
+        "func": "flow.set(\"lastSeen\", Date.now());\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "55dc6cba9e9a23e9",
+        "type": "inject",
+        "z": "3a1385503e854b8c",
+        "name": "Repeat: every 5 seconds",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 340,
+        "wires": [
+            [
+                "f7482f1f748ab0d5"
+            ]
+        ]
+    },
+    {
+        "id": "69a0a6577a883468",
+        "type": "ui_text",
+        "z": "3a1385503e854b8c",
+        "group": "bdef1690bf2db0bb",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Status",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 570,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "f7482f1f748ab0d5",
+        "type": "function",
+        "z": "3a1385503e854b8c",
+        "name": "calc_status",
+        "func": "let last = flow.get(\"lastSeen\") || 0;\nlet age = Date.now() - last;\nmsg.payload = (age > 15000) ? \"OFFLINE\" : \"ONLINE\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 340,
+        "wires": [
+            [
+                "69a0a6577a883468"
+            ]
+        ]
+    },
+    {
+        "id": "f9d4379ae18150d0",
+        "type": "mqtt in",
+        "z": "3a1385503e854b8c",
+        "name": "",
+        "topic": "edgepulse/manjunatha144/device_001/telemetry",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "938e4f071d8e020d",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 220,
+        "y": 540,
+        "wires": [
+            [
+                "fced29e842a5f32b"
+            ]
+        ]
+    },
+    {
+        "id": "3b18a2200683defb",
+        "type": "mqtt in",
+        "z": "3a1385503e854b8c",
+        "name": "",
+        "topic": "edgepulse/manjunatha144/device_001/telemetry",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "938e4f071d8e020d",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 700,
+        "wires": [
+            [
+                "faafb88bd6bb8fe5"
+            ]
+        ]
+    },
+    {
+        "id": "faafb88bd6bb8fe5",
+        "type": "json",
+        "z": "3a1385503e854b8c",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 430,
+        "y": 700,
+        "wires": [
+            [
+                "0c50a731c13f460a"
+            ]
+        ]
+    },
+    {
+        "id": "25a8eb93f9185a4f",
+        "type": "json",
+        "z": "3a1385503e854b8c",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 450,
+        "y": 860,
+        "wires": [
+            [
+                "8003b154c294257b"
+            ]
+        ]
+    },
+    {
+        "id": "e1a3d6dda437fa31",
+        "type": "mqtt in",
+        "z": "3a1385503e854b8c",
+        "name": "",
+        "topic": "edgepulse/manjunatha144/device_001/telemetry",
+        "qos": "2",
+        "datatype": "utf8",
+        "broker": "938e4f071d8e020d",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 780,
+        "wires": [
+            [
+                "b2cc0fd53143b45d"
+            ]
+        ]
+    },
+    {
+        "id": "b2cc0fd53143b45d",
+        "type": "function",
+        "z": "3a1385503e854b8c",
+        "name": "function 1",
+        "func": "msg.payload = JSON.parse(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 200,
+        "y": 920,
+        "wires": [
+            [
+                "76bfcbac34f4c877",
+                "25a8eb93f9185a4f"
+            ]
+        ]
+    },
+    {
+        "id": "bdef1690bf2db0bb",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "1b592f1eda693dd1",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "cebed20bee9939a6",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "broker.hivemq.com",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "938e4f071d8e020d",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "broker.hivemq.com",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "1b592f1eda693dd1",
+        "type": "ui_tab",
+        "name": "Telemetry / Device 001",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "42276935d1343ab4",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6"
+        }
+    }
+]
