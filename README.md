@@ -58,3 +58,14 @@ simulator/       → Python MQTT simulator (Phase 1)
 node-red/        → Node-RED flow exports
 docs/            → Setup and testing notes
 screenshots/     → Dashboard and logs
+---
+
+## Key Learning Outcomes
+
+- Practical ESP-IDF firmware development
+- WiFi initialization and NVS dependency handling
+- MQTT publish/subscribe architecture
+- Event-driven programming with ESP event loop
+- FreeRTOS-based system design fundamentals
+- JSON payload construction in embedded C
+- Debugging reboot loops and connection issues
