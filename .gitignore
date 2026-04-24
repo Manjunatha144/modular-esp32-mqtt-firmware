@@ -1,0 +1,5 @@
+build/
+sdkconfig
+.vscode/
+*.bin
+*.elf

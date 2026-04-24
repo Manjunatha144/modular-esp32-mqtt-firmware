@@ -1,5 +1,36 @@
-ESP32 FreeRTOS MQTT Telemetry
+\# ESP32 FreeRTOS MQTT Telemetry
 
-Broker: broker.hivemq.com:1883
-Telemetry: edgepulse/manjunatha144/device_001/telemetry
-Cmd: edgepulse/manjunatha144/device_001/cmd
+
+
+\## Overview
+
+ESP32 firmware project using ESP-IDF and MQTT.
+
+
+
+\## Features
+
+\- WiFi connection
+
+\- MQTT publish every 5 seconds
+
+\- Command subscription
+
+\- Sequence number tracking
+
+\- JSON telemetry payload
+
+
+
+\## Broker
+
+broker.hivemq.com
+
+
+
+\## Topics
+
+Telemetry: edgepulse/manjunatha144/device\_001/telemetry
+
+Command: edgepulse/manjunatha144/device\_001/cmd
+
