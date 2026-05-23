@@ -48,11 +48,8 @@ void app_main(void)
 
     ESP_LOGI(TAG, "WiFi connected. Starting MQTT...");
 
-    /* Start MQTT */
-    mqtt_start(system_event_group);
-
-    /* Start Telemetry Module */
-    telemetry_start(system_event_group);
+   telemetry_start(system_event_group);   // Create queue first
+   mqtt_start(system_event_group);        // Then start MQTT publish task
 
     /* Idle loop */
     while (1) {

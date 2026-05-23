@@ -2,22 +2,22 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include "esp_wifi.h"
+#include "esp_system.h"
+
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/event_groups.h"
+#include "freertos/queue.h"
 
 #include "esp_log.h"
 #include "esp_timer.h"
-#include "mqtt_client.h"
 
 #include "nvs_flash.h"
 #include "nvs.h"
 
 #include "telemetry.h"
-#include "mqtt_manager.h"
-
-#define TELEMETRY_TOPIC "edgepulse/manjunatha144/device_001/telemetry"
 
 #define WIFI_CONNECTED_BIT BIT0
 #define MQTT_CONNECTED_BIT BIT1
@@ -25,9 +25,13 @@
 #define MIN_INTERVAL_MS 500
 #define MAX_INTERVAL_MS 60000
 
+#define PAYLOAD_MAX_LEN 256
+#define HEAP_ALERT_THRESHOLD 150000   // 150 KB
+
 static const char *TAG = "TELEMETRY";
 
 static EventGroupHandle_t system_event_group;
+static QueueHandle_t telemetry_queue = NULL;
 
 /* Persistent interval */
 static volatile uint32_t interval_ms = 5000;
@@ -94,6 +98,7 @@ void telemetry_notify_reconnect(void)
 static void telemetry_task(void *arg)
 {
     uint32_t seq = 0;
+    char payload[PAYLOAD_MAX_LEN];
 
     while (1) {
 
@@ -106,30 +111,48 @@ static void telemetry_task(void *arg)
         seq++;
 
         uint32_t uptime_ms = esp_timer_get_time() / 1000;
+uint32_t heap_free = esp_get_free_heap_size();
+uint8_t heap_alert = 0;
 
-        char payload[256];
-        snprintf(payload, sizeof(payload),
-                 "{\"device_id\":\"device_001\","
-                 "\"seq\":%lu,"
-                 "\"uptime_ms\":%lu,"
-                 "\"temp\":27.5,"
-                 "\"sent\":%lu,"
-                 "\"failed\":%lu,"
-                 "\"reconnect\":%lu}",
-                 seq, uptime_ms, sent_count, failed_count, reconnect_count);
+if (heap_free < HEAP_ALERT_THRESHOLD) {
+    heap_alert = 1;
+    ESP_LOGW(TAG, "Heap below threshold! Current: %lu", heap_free);
+}
 
-        int msg_id = esp_mqtt_client_publish(mqtt_get_client(),
-                                             TELEMETRY_TOPIC,
-                                             payload,
-                                             0, 0, 0);
+wifi_ap_record_t ap_info;
+int rssi = 0;
+if (esp_wifi_sta_get_ap_info(&ap_info) == ESP_OK) {
+    rssi = ap_info.rssi;
+}
 
-        if (msg_id >= 0) {
+      snprintf(payload, sizeof(payload),
+         "{\"device_id\":\"device_001\","
+         "\"seq\":%lu,"
+         "\"uptime_ms\":%lu,"
+         "\"temp\":27.5,"
+         "\"heap_free\":%lu,"
+         "\"heap_alert\":%u,"
+         "\"rssi\":%d,"
+         "\"sent\":%lu,"
+         "\"failed\":%lu,"
+         "\"reconnect\":%lu}",
+         seq,
+         uptime_ms,
+         heap_free,
+         heap_alert,
+         rssi,
+         sent_count,
+         failed_count,
+         reconnect_count);
+        /* Push payload to queue instead of direct publish */
+        if (xQueueSend(telemetry_queue, payload, pdMS_TO_TICKS(100)) == pdTRUE) {
             sent_count++;
         } else {
             failed_count++;
+            ESP_LOGW(TAG, "Queue full, payload dropped");
         }
 
-        ESP_LOGI(TAG, "Telemetry sent: %s", payload);
+        ESP_LOGI(TAG, "Telemetry queued: %s", payload);
 
         vTaskDelay(pdMS_TO_TICKS(interval_ms));
     }
@@ -142,10 +165,19 @@ void telemetry_start(EventGroupHandle_t event_group)
 
     load_interval_from_nvs();
 
+    /* Create queue for 5 payloads */
+    telemetry_queue = xQueueCreate(5, PAYLOAD_MAX_LEN);
+
     xTaskCreate(telemetry_task,
                 "telemetry_task",
                 4096,
                 NULL,
                 5,
                 NULL);
+}
+
+/* ---------- Getter for MQTT module ---------- */
+QueueHandle_t telemetry_get_queue(void)
+{
+    return telemetry_queue;
 }

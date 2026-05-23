@@ -5,15 +5,43 @@
 #include "esp_log.h"
 #include "mqtt_client.h"
 
+#include "freertos/task.h"
+#include "freertos/queue.h"
+
 #include "mqtt_manager.h"
 #include "telemetry.h"
 
-#define CMD_TOPIC "edgepulse/manjunatha144/device_001/cmd"
+#define CMD_TOPIC        "edgepulse/manjunatha144/device_001/cmd"
+#define TELEMETRY_TOPIC  "edgepulse/manjunatha144/device_001/telemetry"
 
 static const char *TAG = "MQTT_MANAGER";
 
 static EventGroupHandle_t system_event_group;
 static esp_mqtt_client_handle_t global_client = NULL;
+
+
+/* ---------- MQTT Publish Task (Queue Consumer) ---------- */
+static void mqtt_publish_task(void *arg)
+{
+    QueueHandle_t queue = telemetry_get_queue();
+    char payload[256];
+
+    while (1) {
+
+        if (xQueueReceive(queue, payload, portMAX_DELAY) == pdTRUE) {
+
+            if (global_client != NULL) {
+
+                esp_mqtt_client_publish(global_client,
+                                        TELEMETRY_TOPIC,
+                                        payload,
+                                        0, 0, 0);
+
+                ESP_LOGI(TAG, "MQTT Published: %s", payload);
+            }
+        }
+    }
+}
 
 
 /* ---------- MQTT Event Handler ---------- */
@@ -81,6 +109,14 @@ void mqtt_start(EventGroupHandle_t event_group)
                                    NULL);
 
     esp_mqtt_client_start(global_client);
+
+    /* Start MQTT publish task */
+    xTaskCreate(mqtt_publish_task,
+                "mqtt_publish_task",
+                4096,
+                NULL,
+                5,
+                NULL);
 }
 
 
