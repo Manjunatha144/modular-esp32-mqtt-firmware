@@ -285,3 +285,13 @@ idf.py -p PORT flash
 ```bash
 idf.py monitor
 ```
+## Author
+
+### Manjunatha H
+
+Embedded and IoT Firmware Engineer
+
+GitHub:
+```text
+https://github.com/Manjunatha144
+```
