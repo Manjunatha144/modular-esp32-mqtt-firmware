@@ -93,3 +93,21 @@ Responsibilities:
 - RSSI monitoring
 - Reliability statistics
 - NVS persistent interval storage
+## System Flow
+
+```text
+Power On
+→ Bootloader
+→ app_main()
+→ NVS Initialization
+→ WiFi Initialization
+→ Wait for WIFI_CONNECTED_BIT
+→ MQTT Initialization
+→ MQTT Publish Task Start
+→ Telemetry Task Start
+→ Generate JSON Telemetry
+→ Push Payload to FreeRTOS Queue
+→ MQTT Publish Task Consumes Queue
+→ MQTT Broker
+→ Node-RED Dashboard
+```
