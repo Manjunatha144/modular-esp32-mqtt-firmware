@@ -232,3 +232,19 @@ Implemented unique namespace-based MQTT topics.
 - Deep sleep optimization
 - Watchdog timer integration
 - Multi-device scalability
+## MQTT Topics
+
+Broker:
+```text
+broker.hivemq.com
+```
+
+Telemetry Topic:
+```text
+edgepulse/manjunatha144/device_001/telemetry
+```
+
+Command Topic:
+```text
+edgepulse/manjunatha144/device_001/cmd
+```
