@@ -16,38 +16,15 @@ Modular embedded firmware developed using ESP-IDF and FreeRTOS implementing MQTT
 - Real-time JSON telemetry streaming
 ## System Architecture
 
-```text
-+----------------------+
-|   Telemetry Task     |
-|----------------------|
-| Generate JSON Data   |
-| Heap/RSSI Monitoring |
-| Reliability Metrics  |
-+----------+-----------+
-           |
-           v
-+----------------------+
-|   FreeRTOS Queue     |
-+----------+-----------+
-           |
-           v
-+----------------------+
-|  MQTT Publish Task   |
-|----------------------|
-| Queue Consumer       |
-| MQTT Publish Handler |
-+----------+-----------+
-           |
-           v
-+----------------------+
-|   MQTT Broker        |
-+----------+-----------+
-           |
-           v
-+----------------------+
-| Node-RED Dashboard   |
-+----------------------+
-```
+## System Architecture
+
+Telemetry Task
+→ FreeRTOS Queue
+→ MQTT Publish Task
+→ MQTT Broker
+→ Node-RED Dashboard
+
+
 ## Firmware Architecture
 
 ### app_main.c
