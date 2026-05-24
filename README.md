@@ -248,3 +248,40 @@ Command Topic:
 ```text
 edgepulse/manjunatha144/device_001/cmd
 ```
+## Build & Run
+
+### Clone Repository
+
+```bash
+git clone https://github.com/Manjunatha144/modular-esp32-mqtt-firmware.git
+```
+
+---
+
+### Open ESP-IDF Environment
+
+Configure ESP-IDF environment variables.
+
+---
+
+### Build Project
+
+```bash
+idf.py build
+```
+
+---
+
+### Flash Firmware
+
+```bash
+idf.py -p PORT flash
+```
+
+---
+
+### Open Serial Monitor
+
+```bash
+idf.py monitor
+```
