@@ -167,3 +167,19 @@ Default public topic caused payload conflicts.
 
 Fix:
 Implemented unique namespace-based MQTT topics.
+## Repository Structure
+
+```text
+.
+├── main/
+│   ├── app_main.c
+│   ├── wifi_manager.c
+│   ├── wifi_manager.h
+│   ├── mqtt_manager.c
+│   ├── mqtt_manager.h
+│   ├── telemetry.c
+│   └── telemetry.h
+├── screenshots/
+├── diagrams/
+└── README.md
+```
