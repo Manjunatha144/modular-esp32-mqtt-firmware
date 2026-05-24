@@ -208,3 +208,19 @@ Implemented unique namespace-based MQTT topics.
 - Node-RED
 - MQTT Explorer
 - ESP-IDF Monitor
+## Example Telemetry Payload
+
+```json
+{
+  "device_id":"device_001",
+  "seq":31,
+  "uptime_ms":33370,
+  "temp":27.5,
+  "heap_free":205776,
+  "heap_alert":0,
+  "rssi":-52,
+  "sent":30,
+  "failed":0,
+  "reconnect":0
+}
+```
