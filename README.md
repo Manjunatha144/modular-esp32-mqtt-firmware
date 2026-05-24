@@ -14,7 +14,7 @@ Modular embedded firmware developed using ESP-IDF and FreeRTOS implementing MQTT
 - Persistent configuration using NVS
 - Heap and RSSI telemetry monitoring
 - Real-time JSON telemetry streaming
-## System Architecture
+
 
 ## System Architecture
 
