@@ -275,7 +275,7 @@ Related tooling included:
 
 ### Manjunatha H
 
-Embedded and IoT Firmware Engineer
+Embedded and IoT Firmware Developer
 
 GitHub:
 ```text
