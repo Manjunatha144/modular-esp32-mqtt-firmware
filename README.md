@@ -258,6 +258,10 @@ idf.py monitor
 
 ![Serial Monitor](screenshots/serial_monitor.png)
 
+## Firmware Architecture Diagram
+
+![Firmware Architecture](diagrams/firmware_architecture.png)
+
 ## Author
 
 ### Manjunatha H
