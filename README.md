@@ -260,7 +260,8 @@ idf.py monitor
 
 ## Firmware Architecture Diagram
 
-<img src="diagrams/firmware_architecture.png" width="650"/>
+<img src="diagrams/firmware_architecture.jpg" width="650"/>
+
 ## Author
 
 ### Manjunatha H
