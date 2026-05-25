@@ -262,6 +262,15 @@ idf.py monitor
 
 <img src="diagrams/firmware_architecture.jpg" width="650"/>
 
+## External Dashboard Integration
+
+Telemetry data from this firmware was visualized using a Node-RED MQTT dashboard with real-time monitoring, device status tracking, and CSV telemetry logging.
+
+Related tooling included:
+- Node-RED dashboard visualization
+- Python MQTT telemetry utilities
+- MQTT Explorer validation
+
 ## Author
 
 ### Manjunatha H
