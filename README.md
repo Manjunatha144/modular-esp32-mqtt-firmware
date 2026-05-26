@@ -260,7 +260,7 @@ idf.py monitor
 
 ## Firmware Architecture Diagram
 
-<img src="diagrams/firmware_architecture.jpg" width="650"/>
+![Serial Monitor](screenshots/esp32_serial_monitor_output.png)
 
 ## External Dashboard Integration
 
